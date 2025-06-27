@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+public class CurrencyConverter {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        System.out.println("Currency Converter");
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Convert Currency");
+            System.out.println("2. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    convertCurrency(scanner);
+                    break;
+                case 2:
+                    System.out.println("Thank you for using the Currency Converter!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 2);
+
+        scanner.close();
+    }
+
+    public static void convertCurrency(Scanner scanner) {
+        System.out.println("\nAvailable Currencies:");
+        System.out.println("1. INR (Indian Rupee)");
+        System.out.println("2. USD (US Dollar)");
+        System.out.println("3. EUR (Euro)");
+        System.out.println("4. GBP (British Pound)");
+        System.out.println("5. JPY (Japanese Yen)");
+
+        System.out.print("Choose base currency (number): ");
+        int base = scanner.nextInt();
+
+        System.out.print("Choose target currency (number): ");
+        int target = scanner.nextInt();
+
+        System.out.print("Enter amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        double convertedAmount = 0;
+
+        if (base == target) {
+            System.out.println("Base and target currency are the same. Amount remains: " + amount);
+            return;
+        }
+
+        // Conversion logic (fixed sample rates)
+        if (base == 1 && target == 2) convertedAmount = amount * 0.012;   // INR to USD
+        else if (base == 1 && target == 3) convertedAmount = amount * 0.011; // INR to EUR
+        else if (base == 1 && target == 4) convertedAmount = amount * 0.0095; // INR to GBP
+        else if (base == 1 && target == 5) convertedAmount = amount * 1.60; // INR to JPY
+
+        else if (base == 2 && target == 1) convertedAmount = amount * 82;  // USD to INR
+        else if (base == 2 && target == 3) convertedAmount = amount * 0.91; // USD to EUR
+        else if (base == 2 && target == 4) convertedAmount = amount * 0.79; // USD to GBP
+        else if (base == 2 && target == 5) convertedAmount = amount * 134; // USD to JPY
+
+        else if (base == 3 && target == 1) convertedAmount = amount * 90;  // EUR to INR
+        else if (base == 3 && target == 2) convertedAmount = amount * 1.10; // EUR to USD
+        else if (base == 3 && target == 4) convertedAmount = amount * 0.86; // EUR to GBP
+        else if (base == 3 && target == 5) convertedAmount = amount * 147; // EUR to JPY
+
+        else if (base == 4 && target == 1) convertedAmount = amount * 105; // GBP to INR
+        else if (base == 4 && target == 2) convertedAmount = amount * 1.26; // GBP to USD
+        else if (base == 4 && target == 3) convertedAmount = amount * 1.17; // GBP to EUR
+        else if (base == 4 && target == 5) convertedAmount = amount * 170; // GBP to JPY
+
+        else if (base == 5 && target == 1) convertedAmount = amount * 0.62; // JPY to INR
+        else if (base == 5 && target == 2) convertedAmount = amount * 0.0074; // JPY to USD
+        else if (base == 5 && target == 3) convertedAmount = amount * 0.0068; // JPY to EUR
+        else if (base == 5 && target == 4) convertedAmount = amount * 0.0059; // JPY to GBP
+        else {
+            System.out.println("Invalid conversion.");
+            return;
+        }
+
+        // Currency symbols
+        String symbol = switch (target) {
+            case 1 -> "₹";
+            case 2 -> "$";
+            case 3 -> "€";
+            case 4 -> "£";
+            case 5 -> "¥";
+            default -> "";
+        };
+
+        System.out.printf("Converted Amount: %s%.2f\n", symbol, convertedAmount);
+    }
+}
